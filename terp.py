@@ -10,8 +10,8 @@ def eval_program(program):
 
 A.Constant.eval = lambda t, vr, fr: t.value
 A.Variable.eval = lambda t, vr, fr: vr[t.name]
-A.If      .eval = lambda t, vr, fr: (t.then.eval(vr, fr) if t.test.eval(vr, fr) else
-                                     t.else_.eval(vr, fr))
+A.If      .eval = lambda t, vr, fr: (t.then.eval(vr, fr) if t.test.eval(vr, fr)
+                                     else t.else_.eval(vr, fr))
 A.Call    .eval = lambda t, vr, fr: eval_call(t, vr, fr)
 A.Prim2   .eval = lambda t, vr, fr: t.op(t.arg1.eval(vr, fr),
                                          t.arg2.eval(vr, fr))
