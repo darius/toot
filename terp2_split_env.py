@@ -20,7 +20,7 @@ A.Prim2   .eval = lambda t, vr, fr: t.op(t.arg1.eval(vr, fr),
 
 def eval_call(t, vr, fr):
     defn = fetch(fr, t.name)
-    operands = [argument.eval(vr, fr) for argument in t.arguments]
+    operands = tuple(argument.eval(vr, fr) for argument in t.arguments)
     return defn.expr.eval(make_env(defn.params, operands), fr)
 
 def make_env(names, values):
