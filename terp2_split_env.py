@@ -5,13 +5,6 @@ instead of a dict, each environment is a pair (names, values).
 
 import absyntax as A
 
-def make_env(names, values):
-    return (names, values)
-
-def fetch(env, name):
-    (names, values) = env
-    return values[names.index(name)]
-
 def eval_program(program):
     return program.expr.eval(make_env((), ()),
                              make_env(tuple(defn.name for defn in program.defns),
@@ -29,3 +22,10 @@ def eval_call(t, vr, fr):
     defn = fetch(fr, t.name)
     operands = [argument.eval(vr, fr) for argument in t.arguments]
     return defn.expr.eval(make_env(defn.params, operands), fr)
+
+def make_env(names, values):
+    return (names, values)
+
+def fetch(env, name):
+    (names, values) = env
+    return values[names.index(name)]
