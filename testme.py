@@ -8,7 +8,8 @@ from parse import parse_toot
 #import terp2_inline_env as terp
 #import terp3_staged_env as terp
 #import terp4_eagerly_analyze as terp
-import terp5_eager_all_the_way as terp
+#import terp5_eager_all_the_way as terp
+import terp6_stacky as terp
 
 def run(program_text):
     program, = parse_toot(program_text)
