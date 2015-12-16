@@ -1,15 +1,12 @@
-"""
-A recursive interpreter.
-"""
+"Change to a staged interface: the first stage returns a function that's the second stage."
+# t:      tree node
+# dd:     dict of definitions
+# vn, vv: variable names, variable values
 
 import absyntax as A
 
 def eval_program(program):
     return program.expr.eval({defn.name: defn for defn in program.defns}, ())(())
-
-# t:      tree node
-# dd:     dict of definitions
-# vn, vv: variable names, variable values
 
 A.Constant.eval = lambda t, dd, vn: lambda vv: t.value
 A.Variable.eval = lambda t, dd, vn: lambda vv: vv[vn.index(t.name)]

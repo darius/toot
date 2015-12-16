@@ -1,16 +1,13 @@
-"""
-A recursive interpreter.
-"""
+"Split the environment into static and dynamic parts (the names and values)."
+# t:      tree node
+# dd:     dict of definitions
+# env:    environment mapping variables to values
 
 import absyntax as A
 
 def eval_program(program):
     return program.expr.eval({defn.name: defn for defn in program.defns},
                              empty_env)
-
-# t:      tree node
-# dd:     dict of definitions
-# env:    environment mapping variables to values
 
 A.Constant.eval = lambda t, dd, env: t.value
 A.Variable.eval = lambda t, dd, env: fetch(env, t.name)

@@ -1,6 +1,8 @@
-"""
-
-"""
+"Instead of passing and returning values, push and pop them on a stack."
+# t:      tree node
+# dd:     dict of *analyzed* definitions
+# vn, vv: variable names, variable values
+# dn, dv: definition names, definition values (i.e. analyzed definitions)
 
 import absyntax as A
 
@@ -11,11 +13,6 @@ def eval_program(program):
     stack = []
     do_expr(dv, (), stack)
     return stack.pop()
-
-# t:      tree node
-# dd:     dict of *analyzed* definitions
-# vn, vv: variable names, variable values
-# dn, dv: definition names, definition values (i.e. analyzed definitions)
 
 A.Constant.analyze = lambda t, dn, vn: do_constant(t.value)
 A.Variable.analyze = lambda t, dn, vn: do_variable(vn.index(t.name))

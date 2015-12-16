@@ -1,8 +1,7 @@
-"""
-Smoke test
-"""
+"Smoke test."
 
 from parse import parse_toot
+
 #import toot0 as toot
 #import toot1_split_env as toot
 #import toot2_inline_env as toot
@@ -17,5 +16,5 @@ def run(program_text):
     program, = parse_toot(program_text)
     return toot.eval_program(program)
 
-## run(open('factorial.toot').read())
+print run(open('factorial.toot').read())
 #. 120

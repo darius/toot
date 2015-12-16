@@ -1,6 +1,8 @@
-"""
-A recursive interpreter.
-"""
+"I lied: we were still analyzing the definitions at call time. Let's do them eagerly too."
+# t:      tree node
+# dd:     dict of *analyzed* definitions
+# vn, vv: variable names, variable values
+# dn, dv: definition names, definition values (i.e. analyzed definitions)
 
 import absyntax as A
 
@@ -9,11 +11,6 @@ def eval_program(program):
     dv = tuple(defn.expr.analyze(dn, defn.params) for defn in program.defns)
     do_expr = program.expr.analyze(dn, ())
     return do_expr(dv, ())
-
-# t:      tree node
-# dd:     dict of *analyzed* definitions
-# vn, vv: variable names, variable values
-# dn, dv: definition names, definition values (i.e. analyzed definitions)
 
 A.Constant.analyze = lambda t, dn, vn: do_constant(t.value)
 A.Variable.analyze = lambda t, dn, vn: do_variable(vn.index(t.name))

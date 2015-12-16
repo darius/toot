@@ -1,16 +1,13 @@
-"""
-A recursive interpreter.
-"""
+"Push the 'analysis' work back into the first stage (and rename it to 'analyze')."
+# t:      tree node
+# dd:     dict of definitions
+# vn, vv: variable names, variable values
 
 import absyntax as A
 
 def eval_program(program):
     do_expr = program.expr.analyze({defn.name: defn for defn in program.defns}, ())
     return do_expr(())
-
-# t:      tree node
-# dd:     dict of definitions
-# vn, vv: variable names, variable values
 
 A.Constant.analyze = lambda t, dd, vn: lambda vv: t.value
 A.Variable.analyze = lambda t, dd, vn: do_variable(vn.index(t.name))
