@@ -3,7 +3,7 @@
 # dd:     dict of definitions
 # vn, vv: variable names, variable values
 
-import absyntax as A
+import abstract_syntax as A
 
 def eval_program(program):
     do_expr = program.expr.analyze({defn.name: defn for defn in program.defns}, ())

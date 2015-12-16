@@ -3,7 +3,7 @@
 # dd:     dict of definitions
 # env:    environment mapping variables to values
 
-import absyntax as A
+import abstract_syntax as A
 
 def eval_program(program):
     return program.expr.eval({defn.name: defn for defn in program.defns},

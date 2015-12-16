@@ -3,7 +3,7 @@
 import operator
 
 from parson import Grammar, hug
-from absyntax import *
+from abstract_syntax import *
 
 toot_grammar = r"""
 

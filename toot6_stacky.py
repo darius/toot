@@ -3,7 +3,7 @@
 # dn, dv: definition names, definition values (i.e. analyzed definitions)
 # vn, vv: variable names, variable values
 
-import absyntax as A
+import abstract_syntax as A
 
 def eval_program(program):
     dn = tuple(defn.name for defn in program.defns)
