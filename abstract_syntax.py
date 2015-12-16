@@ -1,6 +1,4 @@
-"""
-Abstract syntax trees for Toot programs.
-"""
+"Abstract syntax trees for Toot programs."
 
 def make_ast_type(spec):
     type_name, rhs = spec.split(':')

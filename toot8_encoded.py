@@ -44,7 +44,7 @@ def step(instruction, dv, vv, stack):
         else:          return 1 + operand
     elif opcode == goto:
         return 1 + operand
-    elif opcode == do_op:
+    elif opcode == do_op2:
         arg2 = stack.pop()
         arg1 = stack.pop()
         stack.append(operand(arg1, arg2))
@@ -69,9 +69,9 @@ def do_if(do_then, do_test, do_else):
     return do_test + ((branch, len(do_then)+1),) + do_then + ((goto, len(do_else)),) + do_else
 
 def do_prim2(op, do_arg1, do_arg2):
-    return do_arg1 + do_arg2 + ((do_op, op),)
+    return do_arg1 + do_arg2 + ((do_op2, op),)
 
 def do_call(defn_index, do_arguments):
     return sum(do_arguments, ()) + ((call, (defn_index, len(do_arguments))),)
 
-push_constant, push_variable, branch, goto, do_op, call = range(6)
+push_constant, push_variable, branch, goto, do_op2, call = range(6)
