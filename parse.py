@@ -20,6 +20,7 @@ Mod  = make_prim2(operator.mod)
 Neg  = lambda expr: Sub(Constant(0), expr)
 
 toot_grammar = Grammar(r"""
+
 program: _ defn* :hug print !/./                  :Program.
 print:   /print\b/_ exp.
 defn:    /def\b/_ id '('_ params ')'_ ':'_ stmt   :Definition.
@@ -45,6 +46,7 @@ arguments:  (exp1 (','_ exp1)*)? :hug.
 
 id = /([A-Za-z_][A-Za-z_0-9]*)\b/_.
 _ = /\s*/.
+
 """)(**globals())
 
 parse_toot = toot_grammar.program

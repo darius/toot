@@ -10,6 +10,7 @@ def make_ast_type(spec):
         assert len(args) == len(names), ("arguments don't match #params: %r vs. %r"
                                          % (args, names))
         self.__dict__.update(zip(names, args))
+
     def __repr__(self):
         return '%s(%s)' % (type_name, ', '.join(repr(getattr(self, name))
                                                 for name in names))
