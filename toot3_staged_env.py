@@ -6,7 +6,8 @@
 import absyntax as A
 
 def eval_program(program):
-    return program.expr.eval({defn.name: defn for defn in program.defns}, ())(())
+    do_expr = program.expr.eval({defn.name: defn for defn in program.defns}, ())
+    return do_expr(())
 
 A.Constant.eval = lambda t, dd, vn: lambda vv: t.value
 A.Variable.eval = lambda t, dd, vn: lambda vv: vv[vn.index(t.name)]

@@ -1,8 +1,7 @@
 "Represent the analyzed program as a list of instructions."
 # t:      tree node
-# dd:     dict of *analyzed* definitions
-# vn, vv: variable names, variable values
 # dn, dv: definition names, definition values (i.e. analyzed definitions)
+# vn, vv: variable names, variable values
 
 import absyntax as A
 

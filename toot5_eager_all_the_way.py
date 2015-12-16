@@ -1,8 +1,7 @@
 "I lied: we were still analyzing the definitions at call time. Let's do them eagerly too."
 # t:      tree node
-# dd:     dict of *analyzed* definitions
-# vn, vv: variable names, variable values
 # dn, dv: definition names, definition values (i.e. analyzed definitions)
+# vn, vv: variable names, variable values
 
 import absyntax as A
 

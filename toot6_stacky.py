@@ -1,8 +1,7 @@
 "Instead of passing and returning values, push and pop them on a stack."
 # t:      tree node
-# dd:     dict of *analyzed* definitions
-# vn, vv: variable names, variable values
 # dn, dv: definition names, definition values (i.e. analyzed definitions)
+# vn, vv: variable names, variable values
 
 import absyntax as A
 
