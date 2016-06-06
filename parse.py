@@ -7,7 +7,7 @@ from abstract_syntax import *
 
 toot_grammar = r"""
 
-program: _ defn* :hug print !/./                  :Program.
+program: _ defn* :hug print :end                  :Program.
 print:   /print\b/_ exp.
 defn:    /def\b/_ id '('_ params ')'_ ':'_ stmt   :Definition.
 stmt:    /return\b/_ exp.
