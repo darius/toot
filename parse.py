@@ -3,34 +3,34 @@
 from parson import Grammar
 import abstract_syntax
 
-toot_grammar = r""" _ program.
+toot_grammar = r""" program.
 
-program: defn* :hug print :end                   :Program.
-print:   'print'__ exp.
-defn:    'def'__ id '('_ params ')'_ ':'_ stmt   :Definition.
-stmt:    'return'__ exp.
+program: defn* :hug print :end              :Program.
+print:   "print" exp.
+defn:    "def" id '(' params ')' ':' stmt   :Definition.
+stmt:    "return" exp.
 
-exp:     exp1 ('if'__ exp1 'else'__ exp :If)?.
-exp1:    exp2 ( '<'_   exp2 :Less
-              | '=='_  exp2 :Eq)?.
-exp2:    exp3 (  '+'_  exp3 :Add
-               | '-'_  exp3 :Sub)*.
-exp3:    exp4 (  '*'_  exp4 :Mul
-               | '/'_  exp4 :Div
-               | '%'_  exp4 :Mod)*.
+exp:     exp1 ("if" exp1 "else" exp :If)?.
+exp1:    exp2 ( '<'   exp2 :Less
+              | '=='  exp2 :Eq)?.
+exp2:    exp3 (  '+'  exp3 :Add
+               | '-'  exp3 :Sub)*.
+exp3:    exp4 (  '*'  exp4 :Mul
+               | '/'  exp4 :Div
+               | '%'  exp4 :Mod)*.
 
-exp4:    '('_ exp ')'_
-      |  '-'_ exp4              :Neg
-      |  id '('_ arguments ')'_ :Call
-      |  id                     :Variable
-      |  /(\d+)/_          :int :Constant.
+exp4:    '(' exp ')'
+      |  '-' exp4             :Neg
+      |  id '(' arguments ')' :Call
+      |  id                   :Variable
+      |  /(\d+)/         :int :Constant.
 
-params:     id ** (','_)        :hug.
-arguments:  exp1 ** (','_)      :hug.
+params:     id ** ','         :hug.
+arguments:  exp1 ** ','       :hug.
 
-id:      /([A-Za-z_][A-Za-z_0-9]*)\b/_.
-_:       /\s*/.
-__:      /\b/_.
+id:      /([A-Za-z_][A-Za-z_0-9]*)\b/.
+
+FNORD ~: /\s*/.
 """
 
 parse_toot = Grammar(toot_grammar).bind(abstract_syntax)
