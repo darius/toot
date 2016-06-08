@@ -1,13 +1,11 @@
 "Convert Toot programs from concrete syntax to abstract syntax."
 
-import operator
-
 from parson import Grammar
-from abstract_syntax import *
+import abstract_syntax
 
-toot_grammar = r""" program.
+toot_grammar = r""" _ program.
 
-program: _ defn* :hug print :end                 :Program.
+program: defn* :hug print :end                 :Program.
 print:   'print'__ exp.
 defn:    'def'__ id '('_ params ')'_ ':'_ stmt   :Definition.
 stmt:    'return'__ exp.
@@ -35,16 +33,4 @@ _  = /\s*/.
 __ = /\b/_.
 """
 
-def make_prim2(fn):
-    return lambda arg1, arg2: Prim2(fn, arg1, arg2)
-
-Less = make_prim2(operator.lt)
-Eq   = make_prim2(operator.eq)
-Add  = make_prim2(operator.add)
-Sub  = make_prim2(operator.sub)
-Mul  = make_prim2(operator.mul)
-Div  = make_prim2(operator.truediv)
-Mod  = make_prim2(operator.mod)
-Neg  = lambda expr: Sub(Constant(0), expr)
-
-parse_toot = Grammar(toot_grammar)(**globals())
+parse_toot = Grammar(toot_grammar).bind(abstract_syntax)

@@ -26,3 +26,18 @@ Variable   = make_ast_type('Variable: name')
 If         = make_ast_type('If: then test else_')
 Call       = make_ast_type('Call: name arguments')
 Prim2      = make_ast_type('Prim2: op arg1 arg2')
+
+
+import operator
+
+def make_prim2(fn):
+    return lambda arg1, arg2: Prim2(fn, arg1, arg2)
+
+Less = make_prim2(operator.lt)
+Eq   = make_prim2(operator.eq)
+Add  = make_prim2(operator.add)
+Sub  = make_prim2(operator.sub)
+Mul  = make_prim2(operator.mul)
+Div  = make_prim2(operator.truediv)
+Mod  = make_prim2(operator.mod)
+Neg  = lambda expr: Sub(Constant(0), expr)
