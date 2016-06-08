@@ -28,9 +28,9 @@ exp4:    '('_ exp ')'_
 params:     id ** (','_)        :hug.
 arguments:  exp1 ** (','_)      :hug.
 
-id = /([A-Za-z_][A-Za-z_0-9]*)\b/_.
-_  = /\s*/.
-__ = /\b/_.
+id:      /([A-Za-z_][A-Za-z_0-9]*)\b/_.
+_:       /\s*/.
+__:      /\b/_.
 """
 
 parse_toot = Grammar(toot_grammar).bind(abstract_syntax)
