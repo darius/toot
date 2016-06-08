@@ -5,14 +5,14 @@ import operator
 from parson import Grammar
 from abstract_syntax import *
 
-toot_grammar = r"""
+toot_grammar = r""" program.
 
-program: _ defn* :hug print :end                  :Program.
-print:   /print\b/_ exp.
-defn:    /def\b/_ id '('_ params ')'_ ':'_ stmt   :Definition.
-stmt:    /return\b/_ exp.
+program: _ defn* :hug print :end                 :Program.
+print:   'print'__ exp.
+defn:    'def'__ id '('_ params ')'_ ':'_ stmt   :Definition.
+stmt:    'return'__ exp.
 
-exp:     exp1 (/if\b/_ exp1 /else\b/_ exp :If)?.
+exp:     exp1 ('if'__ exp1 'else'__ exp :If)?.
 exp1:    exp2 ( '<'_   exp2 :Less
               | '=='_  exp2 :Eq)?.
 exp2:    exp3 (  '+'_  exp3 :Add
@@ -27,12 +27,12 @@ exp4:    '('_ exp ')'_
       |  id                     :Variable
       |  /(\d+)/_          :int :Constant.
 
-params:     (id (','_ id)*)?     :hug.
-arguments:  (exp1 (','_ exp1)*)? :hug.
+params:     id ** (','_)        :hug.
+arguments:  exp1 ** (','_)      :hug.
 
 id = /([A-Za-z_][A-Za-z_0-9]*)\b/_.
-_ = /\s*/.
-
+_  = /\s*/.
+__ = /\b/_.
 """
 
 def make_prim2(fn):
@@ -47,5 +47,4 @@ Div  = make_prim2(operator.truediv)
 Mod  = make_prim2(operator.mod)
 Neg  = lambda expr: Sub(Constant(0), expr)
 
-toot_parsers = Grammar(toot_grammar)(**globals())
-parse_toot = toot_parsers.program
+parse_toot = Grammar(toot_grammar)(**globals())
