@@ -1,0 +1,89 @@
+Hi. I wanted to practice giving a talk, so thanks for showing up to be
+the guinea pigs. Please stop me if anything's unclear, or tell me
+afterward if you'd rather.
+
+Compilers have a reputation -- not as scary as they once did, but
+there's still this impression you get of giant intricate programs
+backed by lots of math and engineering. But I've written lots of
+smaller programs that use the same core ideas: here's one:
+http://www.wry.me/hacking/Turing-Drawings/#4,3,0,1,2,3,1,0,1,1,0,2,2,1,3,2,2,0,1,3,0,2,0,1,2,2,2,2,0,0,1,3,3,1,3,2,2,0
+where I took a graphical Turing-machine interpreter by Maxime
+Chevalier and turned it into a compiler -- it's much faster,
+and it didn't take long to write.
+
+And here's another:
+http://djb.deviantart.com/gallery/
+Images from random straight-line programs you'd select and mutate to
+get better ones. On computers at the time interpreting the programs
+was slow, and compiling sped them up enough to make it fun to run 
+through a lot of them.
+
+We're going to focus on a tiny fragment of Python and dissect its
+interpreter. Earlier in the year I wrote a bigger, self-hosting
+compiler for a more usable subset of Python for the 500 lines book,
+but 500 lines is actually a lot. A talk about that compiler would
+inevitably be shallow; let's go deeper on one idea: we can take an
+interpreter apart and reassemble the bits into a compiler.
+
+As a warmup here's a smaller example: filling out string templates.
+
+<<template.py>>
+
+A template is a string with holes; each hole expects either a string
+or a list of strings to be in the dictionary under the name of the
+hole. We call the dictionary the 'environment' because that's the
+conventional term when interpreting programming languages.
+
+This special comment has a runnable example and its output. I can
+change things now and see what happens.
+
+The code is not in the most natural Python style, where you'd look
+over the template string accumulating a result string. We could take
+code in that style and still do the transformations, but they'd be
+less mechanical. Also, bigger languages have recursive grammars that
+lend themselves to recursive interpreters, so we'd end up in something
+like this style -- let's just do it this way from the start.
+
+A template t is either empty, or starts with a hole, or starts with a
+plain constant string. We dispatch on these cases and do the right
+thing for each: look up names in the environment if it's a hole; if
+it's an '@'-sign kind of hole then join the list; and recur on the
+appropriate suffix of the template.
+
+That's an interpreter: it mixes analyzing the template text with
+producing the output. To compile the template we need to separate
+these parts of the work: we add an analysis phase that does what it
+can without the env argument, to be supplied later. We can model this
+by refactoring the fill function, with its template and env arguments,
+into make_filler taking the template and returning a function that
+takes the env. It has exactly the same code but with 'lambda env'
+moved into each branch of the body, and the calls to fill turn into
+make_filler with the arguments staged like so.
+
+So that has the interface we want, but the implementation still mixes
+analyzing the template together with the building of the string. We
+need to push the 'lambda env:' parts further in -- or, to put it
+another way, we need to lift the recursive calls out of the lambdas.
+
+When you call make_filler now, you get back a chain of closures.
+(TODO illustrate)
+
+This is like having a list of instructions -- we could go on for
+another stage to transform this into an actual list. Or another
+direction you could go is to make it generate Python source code to
+feed to the Python compile function. For this tiny little template
+language this process of gradual refactoring wasn't worth it -- if I
+wanted a compiler I'd have coded it directly, knowing where I was
+going. But for trickier problems you want a way for the computer to
+help you think it out, and this kind of gradual transformation of a
+working system, from an easy-to-think-about state to an efficient one,
+that has helped me before.
+
+Moving on to the Python subset:
+
+<<factorial.toot>>
+
+<<parse.py>>
+
+<<abstract_syntax.py>>
+
