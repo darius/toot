@@ -33,4 +33,4 @@ id:      /([A-Za-z_][A-Za-z_0-9]*)/.
 FNORD ~: /\s*/.
 """
 
-parse_toot = Grammar(toot_grammar).bind(abstract_syntax)
+parse = Grammar(toot_grammar).bind(abstract_syntax)
