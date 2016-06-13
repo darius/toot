@@ -27,3 +27,9 @@ This was most influenced by the compiling chapter of [Essentials of
 Programming Languages](http://www.eopl3.com/), first edition; I think
 the latest edition dropped it, though it still has a lot to say about
 transforming programs in stages.
+
+## Running the code
+
+This uses [Parson](https://github.com/darius/parson) for parsing.
+Install it first by cloning its repo, `cd`ing into it, and running
+`python setup.py install`.
