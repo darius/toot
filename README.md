@@ -8,9 +8,9 @@ gives the first 10 minutes; after that I winged it more, going through
 [the slides](https://github.com/darius/toot/blob/master/slideshow.el).
 
 As a talk it was a failure: lecturing for an hour on technical details
-asks a lot of an audience. It might still be of interest as a small
-example of compiling to explore on your own, if you're comfortable
-with recursion and higher-order functions.
+asks a lot of an audience. These files might still be of interest as a
+small example of compiling to explore on your own, if you're
+comfortable with recursion and higher-order functions.
 
 For a warmup we take a [string template
 language](https://github.com/darius/toot/blob/master/template.py) and
