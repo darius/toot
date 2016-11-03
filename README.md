@@ -34,7 +34,7 @@ This uses [Parson](https://github.com/darius/parson) for parsing.
 Install it first by cloning its repo, `cd`ing into it, and running
 `python setup.py install`.
 
-Incidentally, this technique should work nicely to speed up Parson
+Incidentally, compiling-by-staging should work nicely to speed up Parson
 too. It's still an interpreter because I'm not done tinkering with the
 language design, but I [sketched out a staged
 version](https://github.com/darius/parson/blob/master/pegvm.py) and
