@@ -33,3 +33,11 @@ transforming programs in stages.
 This uses [Parson](https://github.com/darius/parson) for parsing.
 Install it first by cloning its repo, `cd`ing into it, and running
 `python setup.py install`.
+
+Incidentally, this technique should work nicely to speed up Parson
+too. It's still an interpreter because I'm not done tinkering with the
+language design, but I [sketched out a staged
+version](https://github.com/darius/parson/blob/master/pegvm.py) and
+later came across a description of Knuth's 1971 parsing machine that
+sounds very similar to what I ended up with (as quoted in a comment
+there).
